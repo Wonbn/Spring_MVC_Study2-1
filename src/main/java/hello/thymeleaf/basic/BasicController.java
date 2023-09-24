@@ -111,15 +111,6 @@ public class BasicController {
         return "/basic/each";
     }
 
-    private static void addUsers(Model model) {
-        List<User> users = new ArrayList<>();
-        users.add(new User("UserA", 10));
-        users.add(new User("UserB", 20));
-        users.add(new User("UserC", 30));
-
-        model.addAttribute("users", users);
-    }
-
     @GetMapping("/condition")
     public String condition(Model model) {
         addUsers(model);
@@ -138,15 +129,32 @@ public class BasicController {
         return "basic/block";
     }
 
+    @GetMapping("/javascript")
+    public String javascript(Model model) {
+        model.addAttribute("user", new User("userA", 20));
+        addUsers(model);
+        return "basic/javascript";
+    }
+
     @Data
     static class User {
 
         private String username;
-        private int age;
 
+        private int age;
         public User(String username, int age) {
             this.username = username;
             this.age = age;
         }
+
+    }
+
+    private static void addUsers(Model model) {
+        List<User> users = new ArrayList<>();
+        users.add(new User("UserA", 10));
+        users.add(new User("UserB", 20));
+        users.add(new User("UserC", 30));
+
+        model.addAttribute("users", users);
     }
 }
